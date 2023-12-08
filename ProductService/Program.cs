@@ -1,6 +1,7 @@
 using Products.Config;
 using Products.Repositories;
 using Products.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,8 @@ builder.Services.AddSingleton<WarehouseService>();
 builder.Services.AddSingleton<ProductService>();
 
 builder.Services.AddControllers()
-        .AddJsonOptions(
-        options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+    .AddJsonOptions(options => 
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

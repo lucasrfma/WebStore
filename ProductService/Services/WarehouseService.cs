@@ -7,27 +7,27 @@ namespace Products.Services;
 
 public class WarehouseService
 {
-    private readonly IMongoCollection<Warehouse> warehousesCollection;
-    private readonly IMongoQueryable<Warehouse> warehousesQueryableCollection;
+    private readonly IMongoCollection<Warehouse> _warehousesCollection;
+    //private readonly IMongoQueryable<Warehouse> _warehousesQueryableCollection;
 
     public WarehouseService(QueryableCollections queryableCollections)
     {
-        warehousesCollection = queryableCollections.warehousesCollection;
-        warehousesQueryableCollection = queryableCollections.warehousesQueryableCollection;
+        _warehousesCollection = queryableCollections.warehousesCollection;
+        //_warehousesQueryableCollection = queryableCollections.warehousesQueryableCollection;
     }
 
     public async Task<List<Warehouse>> GetAllAsync() => 
-        await warehousesCollection.Find(_ => true).ToListAsync();
+        await _warehousesCollection.Find(_ => true).ToListAsync();
 
     public async Task<Warehouse?> GetByIdAsync(string id) => 
-        await warehousesCollection.Find(w =>  w.Id == id).FirstAsync();
+        await _warehousesCollection.Find(w =>  w.Id == id).FirstAsync();
 
     public async Task CreateAsync(Warehouse newWarehouse) =>
-        await warehousesCollection.InsertOneAsync(newWarehouse);
+        await _warehousesCollection.InsertOneAsync(newWarehouse);
 
     public async Task UpdateAsync(string id, Warehouse updatedWarehouse) =>
-        await warehousesCollection.ReplaceOneAsync(w =>  w.Id == id, updatedWarehouse);
+        await _warehousesCollection.ReplaceOneAsync(w =>  w.Id == id, updatedWarehouse);
 
     public async Task RemoveAsync(string id) =>
-        await warehousesCollection.DeleteOneAsync(w => w.Id == id);
+        await _warehousesCollection.DeleteOneAsync(w => w.Id == id);
 }

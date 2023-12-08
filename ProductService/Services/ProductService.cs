@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using Products.Config;
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Products.Models.Entities;
 using Products.Repositories;
 
@@ -8,25 +7,29 @@ namespace Products.Services;
 
 public class ProductService
 {
-    private readonly IMongoCollection<Product> _productCollection;
-    
-    public ProductService(QueryableCollections pd, IOptions<ProductDatabaseSettings> settings)
+    private readonly IMongoCollection<Product> _productsCollection;
+    private readonly IMongoQueryable<Product> _productsQueryableCollection;
+    private readonly IMongoQueryable<Warehouse> _warehousesQueryableCollection;
+
+    public ProductService(QueryableCollections queryableCollections)
     {
-        _productCollection = pd.database.GetCollection<Product>(settings.Value.ProductsCollectionName);
+        _productsCollection = queryableCollections.productsCollection;
+        _productsQueryableCollection = queryableCollections.productsQueryableCollection;
+        _warehousesQueryableCollection = queryableCollections.warehousesQueryableCollection;
     }
 
     public async Task<List<Product>> GetAllAsync() =>
-    await _productCollection.Find(_ => true).ToListAsync();
+    await _productsCollection.Find(_ => true).ToListAsync();
 
     public async Task<Product?> GetByIdAsync(string id) =>
-        await _productCollection.Find(w => w.Id == id).FirstAsync();
+        await _productsCollection.Find(w => w.Id == id).FirstAsync();
 
     public async Task CreateAsync(Product newProduct) =>
-        await _productCollection.InsertOneAsync(newProduct);
+        await _productsCollection.InsertOneAsync(newProduct);
 
     public async Task UpdateAsync(string id, Product updatedProduct) =>
-        await _productCollection.ReplaceOneAsync(p => p.Id == id, updatedProduct);
+        await _productsCollection.ReplaceOneAsync(p => p.Id == id, updatedProduct);
 
     public async Task RemoveAsync(string id) =>
-        await _productCollection.DeleteOneAsync(p => p.Id == id);
+        await _productsCollection.DeleteOneAsync(p => p.Id == id);
 }

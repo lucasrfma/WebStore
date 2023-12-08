@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Products.Models.Dtos;
 using Products.Models.Entities;
 using Products.Services;
 
@@ -30,11 +31,11 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Product newProduct)
+    public async Task<IActionResult> Post(EditProductDto newProduct)
     {
-        await _productService.CreateAsync(newProduct);
-        return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
-
+        var prd = EditProductDto.ToProduct(newProduct);
+        await _productService.CreateAsync(prd);
+        return CreatedAtAction(nameof(GetById), new { id = prd.Id }, newProduct);
     }
 
     [HttpPut("{id:length(24)}")]

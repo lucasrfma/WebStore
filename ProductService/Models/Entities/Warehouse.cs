@@ -11,7 +11,7 @@ public class Warehouse
 
     public string Name { get; set; } = null!;
 
-    public List<Region> AttendedRegions { get; set; } = null!;
+    public Region AttendedRegions { get; set; }
 
     public Address Address { get; set; } = null!;
 }
