@@ -5,7 +5,7 @@ using Products.Services;
 namespace Products.Controllers;
 
 [ApiController]
-[Route("warehouse/api/v1/[controller]")]
+[Route("internal/api/v1/warehouse/[controller]")]
 public class WarehouseController : ControllerBase
 {
     private readonly WarehouseService _warehouseService;

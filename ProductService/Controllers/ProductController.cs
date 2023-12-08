@@ -6,7 +6,7 @@ using Products.Services;
 namespace Products.Controllers;
 
 [ApiController]
-[Route("product/api/v1/[controller]")]
+[Route("internal/api/v1/product/[controller]")]
 public class ProductController : ControllerBase
 {
     private readonly ProductService _productService;
@@ -31,25 +31,25 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(EditProductDto newProduct)
+    public async Task<IActionResult> Post(EditProduct newProduct)
     {
-        var prd = EditProductDto.ToProduct(newProduct);
+        var prd = EditProduct.ToProduct(newProduct);
         await _productService.CreateAsync(prd);
         return CreatedAtAction(nameof(GetById), new { id = prd.Id }, newProduct);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Product updatedProduct)
+    public async Task<IActionResult> Update(string id, EditProduct updateProductDto)
     {
         var product = await _productService.GetByIdAsync(id);
         if (product is null)
         {
             return NotFound();
         }
-        updatedProduct.Id = product.Id;
-        await _productService.UpdateAsync(id, updatedProduct);
+        await _productService.UpdateAsync(id, 
+            EditProduct.UpdateProduct(product,updateProductDto));
 
-        return AcceptedAtAction(nameof(GetById), new { id = updatedProduct.Id }, updatedProduct);
+        return AcceptedAtAction(nameof(GetById), new { id = product.Id }, product);
     }
 
     [HttpDelete("{id:length(24)}")]

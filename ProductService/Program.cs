@@ -12,6 +12,7 @@ builder.Services.Configure<ProductDatabaseSettings>(
 builder.Services.AddSingleton<QueryableCollections>();
 builder.Services.AddSingleton<WarehouseService>();
 builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<StorefrontProductService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => 
