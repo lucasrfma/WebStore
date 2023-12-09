@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ProductDatabaseSettings>(
     builder.Configuration.GetSection("ProductDatabase"));
 
-builder.Services.AddSingleton<QueryableCollections>();
+builder.Services.AddSingleton<MongoCollections>();
 builder.Services.AddSingleton<WarehouseService>();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<StorefrontProductService>();

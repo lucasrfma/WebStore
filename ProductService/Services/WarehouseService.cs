@@ -8,12 +8,10 @@ namespace Products.Services;
 public class WarehouseService
 {
     private readonly IMongoCollection<Warehouse> _warehousesCollection;
-    //private readonly IMongoQueryable<Warehouse> _warehousesQueryableCollection;
 
-    public WarehouseService(QueryableCollections queryableCollections)
+    public WarehouseService(MongoCollections mongoCollections)
     {
-        _warehousesCollection = queryableCollections.warehousesCollection;
-        //_warehousesQueryableCollection = queryableCollections.warehousesQueryableCollection;
+        _warehousesCollection = mongoCollections.warehousesCollection;
     }
 
     public async Task<List<Warehouse>> GetAllAsync() => 

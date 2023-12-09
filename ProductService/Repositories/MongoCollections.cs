@@ -6,14 +6,14 @@ using Products.Models.Entities;
 
 namespace Products.Repositories;
 
-public class QueryableCollections
+public class MongoCollections
 {
     public readonly IMongoCollection<Product> productsCollection;
     public readonly IMongoCollection<Warehouse> warehousesCollection;
     public readonly IMongoQueryable<Product> productsQueryableCollection;
     public readonly IMongoQueryable<Warehouse> warehousesQueryableCollection;
 
-    public QueryableCollections(IOptions<ProductDatabaseSettings> productDatabaseSettings)
+    public MongoCollections(IOptions<ProductDatabaseSettings> productDatabaseSettings)
     {
         var mongoClient = new MongoClient(productDatabaseSettings.Value.ConnectionString);
         var database = mongoClient.GetDatabase(productDatabaseSettings.Value.DatabaseName);

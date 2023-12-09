@@ -28,10 +28,10 @@ public class ProductResponse
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public ShippingProperties ShippingProperties { get; set; } = null!;
-    public List<StockResponseDto>? Stocks { get; set; }
+    public List<StockResponse>? Stocks { get; set; }
 
 
-    public class StockResponseDto
+    public class StockResponse
     {
         //public string WarehouseId { get; set; } = null!;
         //public string StockName { get; set; } = null!;

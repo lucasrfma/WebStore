@@ -21,4 +21,14 @@ public class StorefrontProductController
 
     [HttpGet("{region}")]
     public async Task<List<ProductListingItem>> ListProducts(Region region) => await _sfProductService.ListProducts(region);
+    [HttpGet("available")]
+    public async Task<List<ProductListingItem>> ListAvailableProducts() => await _sfProductService.ListAvailableProducts();
+
+    [HttpGet("available/{region}")]
+    public async Task<List<ProductListingItem>> ListAvailableProducts(Region region) => await _sfProductService.ListAvailableProducts(region);
+    [HttpGet("unavailable")]
+    public async Task<List<ProductListingItem>> ListUnavailableProducts() => await _sfProductService.ListUnavailableProducts();
+
+    [HttpGet("unavailable/{region}")]
+    public async Task<List<ProductListingItem>> ListUnavailableProducts(Region region) => await _sfProductService.ListUnavailableProducts(region);
 }

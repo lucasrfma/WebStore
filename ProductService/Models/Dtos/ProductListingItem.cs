@@ -10,7 +10,7 @@ public class ProductListingItem
     // this attribute can be used to show a special tag on the product listing
     // to let the costumer know it is a limited sale or something similar.
     public string? StockDescription { get; set; }
-    public decimal Price { get; set; }
-    public ulong AvailableQuantity { get; set; }
+    public decimal? Price { get; set; }
+    public ulong? AvailableQuantity { get; set; }
     public string? WarehouseId { get; set; }
 }
