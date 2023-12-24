@@ -1,0 +1,57 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+package ProductProto;
+
+message Product {
+  string Name = 1;
+  string Description = 2;
+  ShippingProperties ShippingProperties = 3;
+  string Id = 4;
+  repeated Stock Stocks = 5;
+}
+message ProductList {
+  repeated Product Products = 1;
+}
+message EditProduct {
+  string Name = 1;
+  string Description = 2;
+  ShippingProperties ShippingProperties = 3;
+}
+message ShippingProperties {
+  double Length = 1;
+  double Height = 2;
+  double Width = 3;
+  double Weight = 4;
+}
+
+message Stock {
+  string StockName = 1;
+  string WarehouseId = 2;
+  string Description = 3;
+  double Price = 4;
+  uint64 AvailableQuantity = 5;
+  double Cost = 6;
+}
+message EditStock {
+  string StockName = 1;
+  string WarehouseId = 2;
+  string Description = 3;
+  double Price = 4;
+}
+message AddToStock {
+  string StockName = 1;
+  uint64 Quantity = 2;
+  double Cost = 3;
+}
+message RemoveFromStock {
+  string StockName = 1;
+  uint64 Quantity = 2;
+}
+
+service ProductService {
+  rpc GetAll(google.protobuf.Empty) returns (ProductList);
+  rpc GetById(CommonProto.MongoId) returns (Product);
+}
+

@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Products.Models.Entities;
 
-public class Warehouse
+public class WarehouseDb
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -13,5 +13,5 @@ public class Warehouse
 
     public Region AttendedRegions { get; set; }
 
-    public Address Address { get; set; } = null!;
+    public AddressDb AddressDb { get; set; } = null!;
 }

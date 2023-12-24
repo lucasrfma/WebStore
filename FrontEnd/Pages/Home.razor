@@ -1,0 +1,47 @@
+﻿@page "/"
+@using Grpc.Net.Client
+@using ProductProto
+@using Google.Protobuf.WellKnownTypes
+@using Grpc.Net.Client.Web
+
+<PageTitle>Home</PageTitle>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (products is not null)
+        {
+            @foreach (var p in  products)
+            {
+                <tr>
+                    <th scope="row">@p.Id</th>
+                    <td>@p.Name</td>
+                    <td>@p.Description</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private IEnumerable<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var channel = GrpcChannel.ForAddress("http://localhost:5053", new GrpcChannelOptions()
+        {
+            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+        });
+        var client = new ProductService.ProductServiceClient(channel);
+
+        products = (await client.GetAllAsync(new Empty())).Products;
+        
+    }
+
+}

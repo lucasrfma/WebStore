@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package CommonProto;
+
+message MongoId {
+  string Id = 1;
+}
+
+service CommonService {
+
+}

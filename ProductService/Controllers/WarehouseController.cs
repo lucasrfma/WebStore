@@ -16,10 +16,10 @@ public class WarehouseController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Warehouse>> GetAll() => await _warehouseService.GetAllAsync();
+    public async Task<List<WarehouseDb>> GetAll() => await _warehouseService.GetAllAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Warehouse>> GetById(string id)
+    public async Task<ActionResult<WarehouseDb>> GetById(string id)
     {
         var warehouse = await _warehouseService.GetByIdAsync(id);
         if (warehouse is null)
@@ -30,25 +30,25 @@ public class WarehouseController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Warehouse newWarehouse)
+    public async Task<IActionResult> Post(WarehouseDb newWarehouseDb)
     {
-        await _warehouseService.CreateAsync(newWarehouse);
-        return CreatedAtAction(nameof(GetById), new { id = newWarehouse.Id }, newWarehouse);
+        await _warehouseService.CreateAsync(newWarehouseDb);
+        return CreatedAtAction(nameof(GetById), new { id = newWarehouseDb.Id }, newWarehouseDb);
 
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Warehouse updatedWarehouse)
+    public async Task<IActionResult> Update(string id, WarehouseDb updatedWarehouseDb)
     {
         var warehouse = await _warehouseService.GetByIdAsync(id);
         if (warehouse is null)
         {
             return NotFound();
         }
-        updatedWarehouse.Id = warehouse.Id;
-        await _warehouseService.UpdateAsync(id, updatedWarehouse);
+        updatedWarehouseDb.Id = warehouse.Id;
+        await _warehouseService.UpdateAsync(id, updatedWarehouseDb);
 
-        return AcceptedAtAction(nameof(GetById), new { id = updatedWarehouse.Id }, updatedWarehouse);
+        return AcceptedAtAction(nameof(GetById), new { id = updatedWarehouseDb.Id }, updatedWarehouseDb);
     }
 
     [HttpDelete("{id:length(24)}")]
