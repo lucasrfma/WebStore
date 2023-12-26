@@ -1,6 +1,6 @@
 ﻿namespace Products.Models.Entities;
 
-public class Address
+public class AddressDb
 {
     public Region Region { get; set; }
     public string PostalCode { get; set; } = null!;

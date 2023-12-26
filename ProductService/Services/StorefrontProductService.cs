@@ -9,9 +9,9 @@ namespace Products.Services;
 
 public class StorefrontProductService
 {
-    private readonly IMongoQueryable<Product> _productsQueryableCollection;
-    private readonly IMongoCollection<Product> _productsCollection;
-    private readonly IMongoQueryable<Warehouse> _warehousesQueryableCollection;
+    private readonly IMongoQueryable<ProductDb> _productsQueryableCollection;
+    private readonly IMongoCollection<ProductDb> _productsCollection;
+    private readonly IMongoQueryable<WarehouseDb> _warehousesQueryableCollection;
 
     public StorefrontProductService(MongoCollections mongoCollections)
     {

@@ -1,4 +1,5 @@
 ﻿using Products.Models.Entities;
+using ProductProto;
 
 namespace Products.Models.Dtos;
 
@@ -38,6 +39,6 @@ public class ProductResponse
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public ulong AvailableQuantity { get; set; }
-        public Address Address { get; set; } = null!;
+        public AddressDb AddressDb { get; set; } = null!;
     }
 }

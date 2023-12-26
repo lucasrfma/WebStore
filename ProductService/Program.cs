@@ -6,13 +6,26 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("AllowLocalhost", p =>
+    {
+        p.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:5106");
+    });
+});
+
 builder.Services.Configure<ProductDatabaseSettings>(
     builder.Configuration.GetSection("ProductDatabase"));
 
 builder.Services.AddSingleton<MongoCollections>();
 builder.Services.AddSingleton<WarehouseService>();
-builder.Services.AddSingleton<ProductService>();
+// builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<StorefrontProductService>();
+
+builder.Services.AddGrpc();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => 
@@ -30,8 +43,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
+app.UseCors();
+app.UseGrpcWeb();
+
 app.UseAuthorization();
 
 app.MapControllers();
+// app.MapGrpcService<ProductServiceImpl>();
+app.UseEndpoints(e =>
+{
+    app.MapGrpcService<ProductServiceImpl>()
+        .EnableGrpcWeb()
+        .RequireCors("AllowLocalhost");
+});
 
 app.Run();

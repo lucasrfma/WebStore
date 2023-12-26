@@ -7,24 +7,24 @@ namespace Products.Services;
 
 public class WarehouseService
 {
-    private readonly IMongoCollection<Warehouse> _warehousesCollection;
+    private readonly IMongoCollection<WarehouseDb> _warehousesCollection;
 
     public WarehouseService(MongoCollections mongoCollections)
     {
         _warehousesCollection = mongoCollections.warehousesCollection;
     }
 
-    public async Task<List<Warehouse>> GetAllAsync() => 
+    public async Task<List<WarehouseDb>> GetAllAsync() => 
         await _warehousesCollection.Find(_ => true).ToListAsync();
 
-    public async Task<Warehouse?> GetByIdAsync(string id) => 
+    public async Task<WarehouseDb?> GetByIdAsync(string id) => 
         await _warehousesCollection.Find(w =>  w.Id == id).FirstAsync();
 
-    public async Task CreateAsync(Warehouse newWarehouse) =>
-        await _warehousesCollection.InsertOneAsync(newWarehouse);
+    public async Task CreateAsync(WarehouseDb newWarehouseDb) =>
+        await _warehousesCollection.InsertOneAsync(newWarehouseDb);
 
-    public async Task UpdateAsync(string id, Warehouse updatedWarehouse) =>
-        await _warehousesCollection.ReplaceOneAsync(w =>  w.Id == id, updatedWarehouse);
+    public async Task UpdateAsync(string id, WarehouseDb updatedWarehouseDb) =>
+        await _warehousesCollection.ReplaceOneAsync(w =>  w.Id == id, updatedWarehouseDb);
 
     public async Task RemoveAsync(string id) =>
         await _warehousesCollection.DeleteOneAsync(w => w.Id == id);

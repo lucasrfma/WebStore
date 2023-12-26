@@ -1,21 +1,27 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using ProductProto;
+
 namespace Products.Models.Entities;
 
-public class Stock
+public class StockDb
 {
     public string StockName { get; set; } = null!;
     [BsonRepresentation(BsonType.ObjectId)]
     public string WarehouseId { get; set; } = null!;
-    public ulong AvailableQuantity { get; set; }
+    public ulong AvailableQuantity { get; private set; }
     // this attribute should be used to describe special stock
     // eg: BLACK FRIDAY!! Only first 20 orders!!
     public string? Description { get; set; }
 
     private decimal _price;
-    public decimal Price { get { return _price;  } set { _price = Math.Round(value, 2); } }
+    public decimal Price { get => _price;
+        set => _price = Math.Round(value, 2);
+    }
     private decimal _cost;
-    public decimal Cost { get { return _cost; } set { _cost = Math.Round(value, 2); } }
+    public decimal Cost { get => _cost;
+        private set => _cost = Math.Round(value, 2);
+    }
 
     /// <summary>
     /// Adds newly bought items to this stock and recalculates this Stocks cost (Average unit cost).
@@ -51,5 +57,40 @@ public class Stock
         if(AvailableQuantity < removedQuantity) return false;
         AvailableQuantity -= removedQuantity;
         return true;
+    }
+    
+    public EditStock ToEditMessage() => new()
+    {
+        StockName = StockName,
+        WarehouseId = WarehouseId,
+        Description = Description,
+        Price = (double) Price,
+    };
+    
+    public static StockDb FromEditMessage(EditStock editStockDto) => new()
+    {
+        StockName = editStockDto.StockName,
+        WarehouseId = editStockDto.WarehouseId,
+        Description = editStockDto.Description,
+        Price = (decimal) Math.Round(editStockDto.Price,2),
+    };
+
+    public Stock ToMessage() => new()
+    {
+        StockName = StockName,
+        WarehouseId = WarehouseId,
+        Description = Description,
+        Price = (double) Price,
+        AvailableQuantity = AvailableQuantity,
+        Cost = (double) Cost
+    };
+    
+    public static StockDb UpdateStock(StockDb stockDb, EditStock editStockDto)
+    {
+        stockDb.StockName = editStockDto.StockName;
+        stockDb.WarehouseId = editStockDto.WarehouseId;
+        stockDb.Description = editStockDto.Description;
+        stockDb.Price = (decimal) Math.Round(editStockDto.Price,2);
+        return stockDb;
     }
 }
