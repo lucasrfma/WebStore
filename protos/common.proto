@@ -6,6 +6,6 @@ message MongoId {
   string Id = 1;
 }
 
-service CommonService {
-
-}
+//service CommonService {
+//
+//}
