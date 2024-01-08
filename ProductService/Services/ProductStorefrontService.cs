@@ -3,17 +3,16 @@ using MongoDB.Driver;
 using Products.Models.Entities;
 using Products.Repositories;
 using Products.Models.Dtos;
-using MongoDB.Bson;
 
 namespace Products.Services;
 
-public class StorefrontProductService
+public class ProductStorefrontService
 {
     private readonly IMongoQueryable<ProductDb> _productsQueryableCollection;
     private readonly IMongoCollection<ProductDb> _productsCollection;
     private readonly IMongoQueryable<WarehouseDb> _warehousesQueryableCollection;
 
-    public StorefrontProductService(MongoCollections mongoCollections)
+    public ProductStorefrontService(MongoCollections mongoCollections)
     {
         _productsQueryableCollection = mongoCollections.productsQueryableCollection;
         _warehousesQueryableCollection = mongoCollections.warehousesQueryableCollection;

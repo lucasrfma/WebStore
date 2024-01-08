@@ -1,12 +1,40 @@
+using System.Text.Json.Serialization;
+using ApiGateway.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("AllowLocalhost", p =>
+    {
+        p.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:5106");
+    });
+});
+
 builder.Services.AddGrpc();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options => 
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-// app.MapGrpcService<GreeterService>();
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.UseRouting();
+app.UseCors();
+app.UseGrpcWeb();
+
+app.MapControllers();
+
+app.UseEndpoints(_ =>
+{
+    app.MapGrpcService<ProductServiceImpl>()
+        .EnableGrpcWeb()
+        .RequireCors("AllowLocalhost");
+});
 
 app.Run();
