@@ -7,11 +7,11 @@ namespace Products.Controllers;
 
 [ApiController]
 [Route("storefront/api/v1/product/[controller]")]
-public class StorefrontProductController
+public class ProductStorefrontController
 {
-    private readonly StorefrontProductService _sfProductService;
+    private readonly ProductStorefrontService _sfProductService;
 
-    public StorefrontProductController(StorefrontProductService sfProductService)
+    public ProductStorefrontController(ProductStorefrontService sfProductService)
     {
         _sfProductService = sfProductService;
     }

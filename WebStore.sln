@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products", "ProductService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{72A45D18-EFE8-4A41-A305-8F1AA596F668}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{E5E97C65-5CB6-498B-B25B-92B92452141D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{72A45D18-EFE8-4A41-A305-8F1AA596F668}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A45D18-EFE8-4A41-A305-8F1AA596F668}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A45D18-EFE8-4A41-A305-8F1AA596F668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E97C65-5CB6-498B-B25B-92B92452141D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E97C65-5CB6-498B-B25B-92B92452141D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E97C65-5CB6-498B-B25B-92B92452141D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E97C65-5CB6-498B-B25B-92B92452141D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
