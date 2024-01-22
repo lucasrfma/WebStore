@@ -8,21 +8,21 @@ namespace Products.Repositories;
 
 public class MongoCollections
 {
-    public readonly IMongoCollection<ProductDb> productsCollection;
-    public readonly IMongoCollection<WarehouseDb> warehousesCollection;
-    public readonly IMongoQueryable<ProductDb> productsQueryableCollection;
-    public readonly IMongoQueryable<WarehouseDb> warehousesQueryableCollection;
+    public readonly IMongoCollection<ProductDb> ProductsCollection;
+    public readonly IMongoCollection<WarehouseDb> WarehousesCollection;
+    public readonly IMongoQueryable<ProductDb> ProductsQueryableCollection;
+    public readonly IMongoQueryable<WarehouseDb> WarehousesQueryableCollection;
 
     public MongoCollections(IOptions<ProductDatabaseSettings> productDatabaseSettings)
     {
         var mongoClient = new MongoClient(productDatabaseSettings.Value.ConnectionString);
         var database = mongoClient.GetDatabase(productDatabaseSettings.Value.DatabaseName);
-        productsCollection =
+        ProductsCollection =
             database.GetCollection<ProductDb>(productDatabaseSettings.Value.ProductsCollectionName);
-        warehousesCollection =
+        WarehousesCollection =
             database.GetCollection<WarehouseDb>(productDatabaseSettings.Value.WarehousesCollectionName);
-        productsQueryableCollection = productsCollection.AsQueryable();
-        warehousesQueryableCollection = warehousesCollection.AsQueryable();
+        ProductsQueryableCollection = ProductsCollection.AsQueryable();
+        WarehousesQueryableCollection = WarehousesCollection.AsQueryable();
     }
 
 }

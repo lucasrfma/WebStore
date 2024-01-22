@@ -14,9 +14,9 @@ public class ProductStorefrontService
 
     public ProductStorefrontService(MongoCollections mongoCollections)
     {
-        _productsQueryableCollection = mongoCollections.productsQueryableCollection;
-        _warehousesQueryableCollection = mongoCollections.warehousesQueryableCollection;
-        _productsCollection = mongoCollections.productsCollection;
+        _productsQueryableCollection = mongoCollections.ProductsQueryableCollection;
+        _warehousesQueryableCollection = mongoCollections.WarehousesQueryableCollection;
+        _productsCollection = mongoCollections.ProductsCollection;
     }
 
     public async Task<List<ProductListingItem>> ListAvailableProducts()
