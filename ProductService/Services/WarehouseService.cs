@@ -11,7 +11,7 @@ public class WarehouseService
 
     public WarehouseService(MongoCollections mongoCollections)
     {
-        _warehousesCollection = mongoCollections.warehousesCollection;
+        _warehousesCollection = mongoCollections.WarehousesCollection;
     }
 
     public async Task<List<WarehouseDb>> GetAllAsync() => 

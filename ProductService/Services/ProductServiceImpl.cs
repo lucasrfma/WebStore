@@ -12,10 +12,10 @@ namespace Products.Services;
 
 public class ProductServiceImpl(MongoCollections mongoCollections) : ProductServiceBase
 {
-    private readonly IMongoCollection<ProductDb> _productsCollection = mongoCollections.productsCollection;
+    private readonly IMongoCollection<ProductDb> _productsCollection = mongoCollections.ProductsCollection;
 
     private readonly IMongoQueryable<ProductDb> _productsQueryableCollection =
-        mongoCollections.productsQueryableCollection;
+        mongoCollections.ProductsQueryableCollection;
 
     public override async Task<ProductList> GetAll(Empty request, ServerCallContext context)
     {

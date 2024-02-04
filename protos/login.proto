@@ -14,6 +14,12 @@ message LoginResponse {
   google.protobuf.Timestamp expiration = 3;
 }
 
+message RegistrationResponse {
+  bool success = 1;
+  string email = 2;
+}
+
 service LoginService {
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(LoginRequest) returns (RegistrationResponse);
 }
